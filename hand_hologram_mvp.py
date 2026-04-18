@@ -80,7 +80,9 @@ def draw_hologram(frame: np.ndarray, state: HologramState) -> None:
 
 
 def main() -> None:
-    mp_hands = mp.solutions.hands
+    import mediapipe as mp
+
+mp_hands = mp.tasks.vision.HandLandmarker
     mp_draw = mp.solutions.drawing_utils
 
     cap = cv2.VideoCapture(0)
