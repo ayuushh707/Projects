@@ -82,9 +82,18 @@ def draw_hologram(frame: np.ndarray, state: HologramState) -> None:
 def main() -> None:
     import mediapipe as mp
 
-mp_hands = mp.tasks.vision.HandLandmarker
-    mp_draw = mp.solutions.drawing_utils
+import mediapipe as mp
+from mediapipe.tasks import python
+from mediapipe.tasks.python import vision
 
+base_options = python.BaseOptions(model_asset_path="hand_landmarker.task")
+
+options = vision.HandLandmarkerOptions(
+    base_options=base_options,
+    num_hands=2
+)
+
+hand_detector = vision.HandLandmarker.create_from_options(options)
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         raise RuntimeError("Could not open webcam. Check camera permissions/device.")
